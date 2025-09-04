@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  GHFollowers
 //
-//  Created by Shetty, Chirag Ranjit on 22/06/25.
+//  Created by Shetty, Chirag Ranjit on 11/05/25.
 //
 
 import UIKit
@@ -33,4 +33,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
 

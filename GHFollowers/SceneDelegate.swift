@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  GHFollowers
 //
-//  Created by Shetty, Chirag Ranjit on 22/06/25.
+//  Created by Shetty, Chirag Ranjit on 11/05/25.
 //
 
 import UIKit
@@ -13,11 +13,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        
+
+        
+        guard let windowScene = (scene as? UIWindowScene) else { return } //1. creating a window
+        
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)  //2. fill the full window screen with the window(bounds means fill)
+        window?.windowScene = windowScene //3. every window has a window scene
+        window?.rootViewController = createTabBarController()//4. every window needs a view controller to show the content
+        window?.makeKeyAndVisible() //5. show it on the phone screen
+        
+        //6. now when you run the app, you should see the tab bar on the screen
     }
+    //creating the search navigation
+    func createSearchNavigationController() -> UINavigationController {
+        let searchVC = SearchVC()
+        searchVC.title = "Search"
+        searchVC.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+        return UINavigationController(rootViewController: searchVC)
+    }
+    //creating the favourites navigation
+    func createFavouritesNavigationController() -> UINavigationController {
+        let favoritesListVC = FavoritesListVC()
+        favoritesListVC.title = "Favorites"
+        favoritesListVC.tabBarItem.image = UIImage(systemName: "star")
+        return UINavigationController(rootViewController: favoritesListVC)
+    }
+    
+    //create the tab bar after you made the induvidual nav bars above
+    func createTabBarController() -> UITabBarController {
+        let tabBar = UITabBarController()
+        //tabBar.tabBar.backgroundColor = .systemGreen
+        UITabBar.appearance().tintColor = .systemGreen
+        tabBar.viewControllers = [createSearchNavigationController(), createFavouritesNavigationController()]
+        return tabBar
+    }
+    
+    //So after this we know that our tab bar controllers are holding the navigation controllers which are holding the view controllers2
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
@@ -49,4 +81,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
+
 
